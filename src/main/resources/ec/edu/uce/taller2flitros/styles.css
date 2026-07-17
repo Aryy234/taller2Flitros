@@ -4,22 +4,18 @@
 }
 
 .root-pane {
-    -fx-background-color: linear-gradient(to bottom, #171c24, #1d2530);
+    -fx-background-color: linear-gradient(to bottom, #151b23, #1b2230);
 }
 
 .label {
     -fx-text-fill: #e8edf3;
 }
 
-.top-shell {
-    -fx-background-color: linear-gradient(to bottom, #202734, #1a202a);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 18, 0, 0, 4);
-}
-
-.hero-bar {
-    -fx-background-color: transparent;
-    -fx-border-color: rgba(120, 137, 155, 0.35);
+.app-header {
+    -fx-background-color: linear-gradient(to bottom, #202938, #1a202c);
+    -fx-border-color: rgba(120, 137, 155, 0.28);
     -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 18, 0, 0, 4);
 }
 
 .app-title {
@@ -47,44 +43,47 @@
     -fx-font-weight: bold;
 }
 
-.toolbar {
-    -fx-background-color: #1c222d;
-    -fx-border-color: rgba(120, 137, 155, 0.28);
-    -fx-border-width: 0 0 1 0;
-}
-
-.toolbar-row {
-    -fx-max-width: infinity;
-    -fx-alignment: center-left;
-}
-
-.toolbar-scroll {
+.sidebar-scroll {
     -fx-background-color: transparent;
     -fx-background: transparent;
-    -fx-border-color: transparent;
-    -fx-fit-to-height: true;
+    -fx-border-color: rgba(120, 137, 155, 0.22);
+    -fx-border-width: 0 1 0 0;
 }
 
-.toolbar-scroll > .viewport {
+.sidebar-scroll > .viewport {
     -fx-background-color: transparent;
 }
 
-.toolbar-scroll .scroll-bar:horizontal {
-    -fx-opacity: 0.85;
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #1c2330, #171d27);
+}
+
+.sidebar-card {
+    -fx-padding: 12;
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(164, 178, 193, 0.14);
+    -fx-border-radius: 14;
+}
+
+.sidebar-section-title {
+    -fx-text-fill: #eef3f8;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
 }
 
 .toolbar-slider-box {
-    -fx-padding: 4 6 4 6;
-    -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-background-radius: 10;
-    -fx-border-color: rgba(164, 178, 193, 0.22);
-    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(164, 178, 193, 0.16);
+    -fx-border-radius: 12;
 }
 
 .toolbar-slider-label {
-    -fx-text-fill: #d7dee7;
+    -fx-text-fill: #d9e2ec;
     -fx-font-size: 11px;
-    -fx-min-width: 66;
+    -fx-min-width: 74;
 }
 
 .toolbar-slider-value {
@@ -95,13 +94,15 @@
 }
 
 .nav-menu-btn {
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(255, 255, 255, 0.03);
     -fx-text-fill: #e8edf3;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-padding: 8 14 8 14;
+    -fx-border-color: rgba(164, 178, 193, 0.2);
+    -fx-padding: 9 14 9 14;
     -fx-cursor: hand;
-    -fx-min-height: 34;
+    -fx-min-height: 36;
+    -fx-alignment: center-left;
 }
 
 .nav-menu-btn:hover,
@@ -174,7 +175,7 @@
 }
 
 .workspace {
-    -fx-background-color: linear-gradient(to bottom right, #1a202a, #161b23);
+    -fx-background-color: linear-gradient(to bottom right, #1a202a, #151a22);
 }
 
 .image-panel {
@@ -185,6 +186,7 @@
 
 .result-panel {
     -fx-border-width: 1 1 1 0;
+    -fx-background-color: linear-gradient(to bottom, #202734, #1c222d);
 }
 
 .panel-header {
@@ -207,6 +209,7 @@
 .image-stack {
     -fx-padding: 22;
     -fx-background-color: linear-gradient(to bottom, #161c25, #1a212c);
+    -fx-background-insets: 0;
 }
 
 .original-stack:hover {
@@ -214,7 +217,12 @@
 }
 
 .result-stack {
-    -fx-background-color: linear-gradient(to bottom, #152024, #19262a);
+    -fx-background-color: linear-gradient(to bottom, #161c25, #1a212c);
+    -fx-background-insets: 0;
+}
+
+.placeholder-box {
+    -fx-background-color: transparent;
 }
 
 .placeholder-text {
@@ -229,8 +237,8 @@
 }
 
 .status-bar {
-    -fx-background-color: #1a202a;
-    -fx-border-color: rgba(120, 137, 155, 0.28);
+    -fx-background-color: #171d27;
+    -fx-border-color: rgba(120, 137, 155, 0.24);
     -fx-border-width: 1 0 0 0;
 }
 
@@ -289,10 +297,6 @@
 .demo-scroll {
     -fx-background: transparent;
     -fx-background-color: transparent;
-}
-
-.demo-top-shell {
-    -fx-min-height: 110;
 }
 
 .demo-tabs {

@@ -10,199 +10,242 @@
             styleClass="root-pane">
 
     <top>
-        <VBox styleClass="top-shell">
-            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="hero-bar">
-                <padding><Insets top="16" right="22" bottom="16" left="22"/></padding>
-                <VBox spacing="2">
+        <VBox styleClass="app-header">
+            <padding>
+                <Insets top="18" right="22" bottom="18" left="22"/>
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <VBox spacing="4">
                     <Label text="Generador de Filtros" styleClass="app-title"/>
-                    <Label text="Aplica filtros, genera degradados y explora efectos en una sola interfaz." styleClass="app-subtitle"/>
+                    <Label text="Selecciona una imagen, aplica filtros y compara el resultado de forma clara."
+                           styleClass="app-subtitle"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="activeFilterLabel" text="" styleClass="active-filter-chip" visible="false" managed="false"/>
-                <Label fx:id="statusLabel" text="Listo para procesar" styleClass="status-label-header"/>
+                <VBox alignment="CENTER_RIGHT" spacing="6">
+                    <HBox alignment="CENTER_RIGHT" spacing="8">
+                        <Label fx:id="activeFilterLabel" text="" styleClass="active-filter-chip" visible="false" managed="false"/>
+                        <Label fx:id="statusLabel" text="Listo para procesar" styleClass="status-label-header"/>
+                    </HBox>
+                </VBox>
             </HBox>
-
-            <VBox spacing="8" styleClass="toolbar" minHeight="120" prefHeight="120">
-                <padding><Insets top="10" right="16" bottom="10" left="16"/></padding>
-
-                <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" fitToHeight="true" fitToWidth="false"
-                            pannable="true" prefHeight="92" minHeight="92" styleClass="toolbar-scroll">
-                    <content>
-                        <HBox spacing="8" alignment="CENTER_LEFT" styleClass="toolbar-row" minHeight="84">
-                    <MenuButton fx:id="menuGenerar" text="Generación de imágenes" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemRandomImage" text="Imagen Aleatoria"/>
-                        <MenuItem fx:id="menuItemCopyImage" text="Copiar Imagen"/>
-                        <SeparatorMenuItem/>
-                        <MenuItem text="Degradado..." onAction="#handleOpenGradientDialog"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuConvolucion" text="Convolución" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemManualConvolution" text="Convolución Manual"/>
-                        <MenuItem fx:id="menuItemOpConvolution" text="Convolución Op"/>
-                        <MenuItem fx:id="menuItemAmanecer" text="Convolución Amanecer ×10"/>
-                        <SeparatorMenuItem/>
-                        <Menu text="Tipos de Kernel">
-                            <items>
-                                <MenuItem fx:id="menuKernelNormal" text="Normal"/>
-                                <MenuItem fx:id="menuKernelSharpen" text="Enfoque"/>
-                                <MenuItem fx:id="menuKernelBlur3" text="Desenfoque 3x3"/>
-                                <MenuItem fx:id="menuKernelBlur9" text="Desenfoque 9x9"/>
-                                <MenuItem fx:id="menuKernelEdges4" text="Bordes 4v"/>
-                                <MenuItem fx:id="menuKernelEdges8" text="Bordes 8v"/>
-                                <MenuItem fx:id="menuKernelLighten" text="Aclaración"/>
-                                <MenuItem fx:id="menuKernelDarken" text="Oscurecer"/>
-                            </items>
-                        </Menu>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuColor" text="Color" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemBlackWhite" text="Blanco y Negro"/>
-                        <MenuItem fx:id="menuItemGrayscale" text="Escala de Grises"/>
-                        <MenuItem fx:id="menuItemGrayscaleHsv" text="Escala de Grises HSV"/>
-                        <MenuItem fx:id="menuItemRetro1" text="Efecto Retro 1"/>
-                        <MenuItem fx:id="menuItemRetro2" text="Efecto Retro 2"/>
-                        <MenuItem fx:id="menuItemNegative" text="Filtro Negativo"/>
-                        <MenuItem fx:id="menuItemHistogram" text="Histograma RGB"/>
-                        <MenuItem fx:id="menuItemEqualization" text="Ecualización"/>
-                        <MenuItem fx:id="menuItemBlend" text="Blending / Mezcla"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuHsv" text="Efectos HSV" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemHsvFilters" text="Filtros HSV"/>
-                        <MenuItem fx:id="menuItemHsvSaturation" text="Saturación HSV"/>
-                        <MenuItem fx:id="menuItemBrightnessByChannel" text="Brillo por Canal"/>
-                        <MenuItem fx:id="menuItemAlphaChannel" text="Canal Alpha"/>
-                    </items>
-                    </MenuButton>
-
-                    <VBox spacing="6" styleClass="toolbar-slider-box">
-                        <padding><Insets top="0" right="8" bottom="0" left="6"/></padding>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Brillo" styleClass="toolbar-slider-label"/>
-                            <Slider fx:id="brightnessSlider" min="-100" max="100" value="0" prefWidth="120" blockIncrement="1"/>
-                            <Label fx:id="brightnessValueLabel" text="0" styleClass="toolbar-slider-value"/>
-                        </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Saturación" styleClass="toolbar-slider-label"/>
-                            <Slider fx:id="saturationSlider" min="0" max="200" value="100" prefWidth="120" blockIncrement="1"/>
-                            <Label fx:id="saturationValueLabel" text="100" styleClass="toolbar-slider-value"/>
-                        </HBox>
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Alpha" styleClass="toolbar-slider-label"/>
-                            <Slider fx:id="alphaSlider" min="0" max="255" value="255" prefWidth="120" blockIncrement="1"/>
-                            <Label fx:id="alphaValueLabel" text="255" styleClass="toolbar-slider-value"/>
-                        </HBox>
-                    </VBox>
-
-                    <MenuButton fx:id="menuDegradados" text="Degradados" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemGradientHorizontal" text="Degradado Horizontal"/>
-                        <MenuItem fx:id="menuItemGradientVertical" text="Degradado Vertical"/>
-                        <MenuItem fx:id="menuItemGradientRadial" text="Degradado Radial"/>
-                        <MenuItem fx:id="menuItemGradientSoftRadial" text="Gradiente Radial"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuEspeciales" text="Especiales" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemCircularFade" text="Desvanecimiento Circular"/>
-                        <MenuItem fx:id="menuItemFrostedGlass" text="Vidrio Esmerilado"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuMascara" text="Máscara / Recorte" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemBitMask" text="Recorte de Bits"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuExposiciones" text="Exposiciones" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem fx:id="menuItemStencilCircle" text="Stencil circular"/>
-                        <MenuItem fx:id="menuItemAlphaTest" text="Alpha Test"/>
-                        <MenuItem fx:id="menuItemLogicOp" text="Logic Op"/>
-                        <MenuItem fx:id="menuItemDepthDemo" text="Depth Test"/>
-                        <MenuItem fx:id="menuItemBlendDemo" text="Blending"/>
-                    </items>
-                    </MenuButton>
-
-                    <MenuButton fx:id="menuDemos" text="Demos de clase" styleClass="nav-menu-btn">
-                    <items>
-                        <MenuItem text="Abrir demos..." onAction="#handleOpenClassDemos"/>
-                    </items>
-                    </MenuButton>
-
-                    <Region minWidth="24" prefWidth="24"/>
-
-                    <Button fx:id="randomImageBtn" text="Aleatoria" onAction="#handleRandomImage" styleClass="btn-ghost"/>
-                    <Button fx:id="copyImageBtn" text="Copiar" onAction="#handleCopyImage" styleClass="btn-ghost"/>
-                    <Button fx:id="applyFilterBtn" text="Aplicar" disable="true" onAction="#handleApplyFilter" styleClass="btn-primary"/>
-                    <Button fx:id="resetBtn" text="Restablecer filtro" onAction="#handleRestoreBeforeFilter" styleClass="btn-secondary"/>
-                    <Button fx:id="saveImageBtn" text="Guardar" disable="true" onAction="#handleSaveImage" styleClass="btn-secondary"/>
-                    <Button text="Limpiar" onAction="#handleReset" styleClass="btn-ghost"/>
-                        </HBox>
-                    </content>
-                </ScrollPane>
-            </VBox>
         </VBox>
     </top>
 
+    <left>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" pannable="true"
+                    prefWidth="330" minWidth="300" maxWidth="360" styleClass="sidebar-scroll">
+            <content>
+                <VBox spacing="14" styleClass="sidebar">
+                    <padding>
+                        <Insets top="16" right="14" bottom="16" left="14"/>
+                    </padding>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Acciones rápidas" styleClass="sidebar-section-title"/>
+                        <Button fx:id="randomImageBtn" text="Imagen aleatoria" onAction="#handleRandomImage" maxWidth="Infinity" styleClass="btn-primary"/>
+                        <Button fx:id="copyImageBtn" text="Copiar imagen" onAction="#handleCopyImage" maxWidth="Infinity" styleClass="btn-secondary"/>
+                        <Button fx:id="applyFilterBtn" text="Aplicar filtro" disable="true" onAction="#handleApplyFilter" maxWidth="Infinity" styleClass="btn-primary"/>
+                        <Button fx:id="resetBtn" text="Restablecer antes del filtro" onAction="#handleRestoreBeforeFilter" maxWidth="Infinity" styleClass="btn-secondary"/>
+                        <Button fx:id="saveImageBtn" text="Guardar resultado" disable="true" onAction="#handleSaveImage" maxWidth="Infinity" styleClass="btn-secondary"/>
+                        <Button text="Limpiar interfaz" onAction="#handleReset" maxWidth="Infinity" styleClass="btn-ghost"/>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Generación de imágenes" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuGenerar" text="Opciones" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemRandomImage" text="Imagen Aleatoria"/>
+                                <MenuItem fx:id="menuItemCopyImage" text="Copiar Imagen"/>
+                                <SeparatorMenuItem/>
+                                <MenuItem text="Degradado..." onAction="#handleOpenGradientDialog"/>
+                            </items>
+                        </MenuButton>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Convolución" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuConvolucion" text="Filtros de convolución" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemManualConvolution" text="Convolución Manual"/>
+                                <MenuItem fx:id="menuItemOpConvolution" text="Convolución Op"/>
+                                <MenuItem fx:id="menuItemAmanecer" text="Convolución Amanecer ×10"/>
+                                <SeparatorMenuItem/>
+                                <Menu text="Tipos de Kernel">
+                                    <items>
+                                        <MenuItem fx:id="menuKernelNormal" text="Normal"/>
+                                        <MenuItem fx:id="menuKernelSharpen" text="Enfoque"/>
+                                        <MenuItem fx:id="menuKernelBlur3" text="Desenfoque 3x3"/>
+                                        <MenuItem fx:id="menuKernelBlur9" text="Desenfoque 9x9"/>
+                                        <MenuItem fx:id="menuKernelEdges4" text="Bordes 4v"/>
+                                        <MenuItem fx:id="menuKernelEdges8" text="Bordes 8v"/>
+                                        <MenuItem fx:id="menuKernelLighten" text="Aclaración"/>
+                                        <MenuItem fx:id="menuKernelDarken" text="Oscurecer"/>
+                                    </items>
+                                </Menu>
+                            </items>
+                        </MenuButton>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Color" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuColor" text="Opciones de color" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemBlackWhite" text="Blanco y Negro"/>
+                                <MenuItem fx:id="menuItemGrayscale" text="Escala de Grises"/>
+                                <MenuItem fx:id="menuItemGrayscaleHsv" text="Escala de Grises HSV"/>
+                                <MenuItem fx:id="menuItemRetro1" text="Efecto Retro 1"/>
+                                <MenuItem fx:id="menuItemRetro2" text="Efecto Retro 2"/>
+                                <MenuItem fx:id="menuItemNegative" text="Filtro Negativo"/>
+                                <MenuItem fx:id="menuItemHistogram" text="Histograma RGB"/>
+                                <MenuItem fx:id="menuItemEqualization" text="Ecualización"/>
+                                <MenuItem fx:id="menuItemBlend" text="Blending / Mezcla"/>
+                            </items>
+                        </MenuButton>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Efectos HSV" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuHsv" text="Ajustes HSV" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemHsvFilters" text="Filtros HSV"/>
+                                <MenuItem fx:id="menuItemHsvSaturation" text="Saturación HSV"/>
+                                <MenuItem fx:id="menuItemBrightnessByChannel" text="Brillo por Canal"/>
+                                <MenuItem fx:id="menuItemAlphaChannel" text="Canal Alpha"/>
+                            </items>
+                        </MenuButton>
+
+                        <VBox spacing="8" styleClass="toolbar-slider-box">
+                            <Label text="Ajustes de imagen" styleClass="sidebar-section-title"/>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label text="Brillo" styleClass="toolbar-slider-label"/>
+                                <Slider fx:id="brightnessSlider" min="-100" max="100" value="0" blockIncrement="1" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="brightnessValueLabel" text="0" styleClass="toolbar-slider-value"/>
+                            </HBox>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label text="Saturación" styleClass="toolbar-slider-label"/>
+                                <Slider fx:id="saturationSlider" min="0" max="200" value="100" blockIncrement="1" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="saturationValueLabel" text="100" styleClass="toolbar-slider-value"/>
+                            </HBox>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label text="Alpha" styleClass="toolbar-slider-label"/>
+                                <Slider fx:id="alphaSlider" min="0" max="255" value="255" blockIncrement="1" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="alphaValueLabel" text="255" styleClass="toolbar-slider-value"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Degradados y especiales" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuDegradados" text="Degradados" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemGradientHorizontal" text="Degradado Horizontal"/>
+                                <MenuItem fx:id="menuItemGradientVertical" text="Degradado Vertical"/>
+                                <MenuItem fx:id="menuItemGradientRadial" text="Degradado Radial"/>
+                                <MenuItem fx:id="menuItemGradientSoftRadial" text="Gradiente Radial"/>
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="menuEspeciales" text="Especiales" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemCircularFade" text="Desvanecimiento Circular"/>
+                                <MenuItem fx:id="menuItemFrostedGlass" text="Vidrio Esmerilado"/>
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="menuMascara" text="Máscara / Recorte" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemBitMask" text="Recorte de Bits"/>
+                            </items>
+                        </MenuButton>
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="sidebar-card">
+                        <Label text="Exposiciones y demos" styleClass="sidebar-section-title"/>
+                        <MenuButton fx:id="menuExposiciones" text="Exposiciones" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem fx:id="menuItemStencilCircle" text="Stencil circular"/>
+                                <MenuItem fx:id="menuItemAlphaTest" text="Alpha Test"/>
+                                <MenuItem fx:id="menuItemLogicOp" text="Logic Op"/>
+                                <MenuItem fx:id="menuItemDepthDemo" text="Depth Test"/>
+                                <MenuItem fx:id="menuItemBlendDemo" text="Blending"/>
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="menuDemos" text="Demos de clase" maxWidth="Infinity" styleClass="nav-menu-btn">
+                            <items>
+                                <MenuItem text="Abrir demos..." onAction="#handleOpenClassDemos"/>
+                            </items>
+                        </MenuButton>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </left>
+
     <center>
-        <GridPane styleClass="workspace">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
-                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="ALWAYS"/>
-            </rowConstraints>
+        <VBox spacing="12" styleClass="workspace" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="18" right="18" bottom="18" left="18"/>
+            </padding>
 
-            <VBox GridPane.columnIndex="0" styleClass="image-panel">
-                <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
-                    <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
-                    <Label text="Imagen original" styleClass="panel-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Label fx:id="fileNameLabel" text="Ninguna imagen seleccionada" styleClass="file-name-label"/>
-                </HBox>
-                <StackPane fx:id="originalImageStack" VBox.vgrow="ALWAYS" styleClass="image-stack original-stack" onMouseClicked="#handleSelectImage">
-                    <ImageView fx:id="originalImageView" preserveRatio="true"/>
-                    <VBox fx:id="originalPlaceholder" alignment="CENTER" spacing="12" styleClass="placeholder-box">
-                        <Label text="Selecciona o genera una imagen" styleClass="placeholder-text"/>
-                        <Label text="Clic aquí para abrir un archivo" styleClass="placeholder-hint"/>
-                    </VBox>
-                </StackPane>
-            </VBox>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="panel-header">
+                <padding>
+                    <Insets top="12" right="16" bottom="12" left="16"/>
+                </padding>
+                <Label text="Vista de trabajo" styleClass="panel-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="previewLabel" text="" styleClass="active-filter-chip"/>
+            </HBox>
 
-            <VBox GridPane.columnIndex="1" styleClass="image-panel result-panel">
-                <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
-                    <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
-                    <Label text="Resultado" styleClass="panel-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <Label fx:id="previewLabel" text="" styleClass="active-filter-chip"/>
-                </HBox>
-                <StackPane fx:id="previewImageStack" VBox.vgrow="ALWAYS" styleClass="image-stack result-stack">
-                    <ImageView fx:id="previewImageView" preserveRatio="true"/>
-                    <VBox fx:id="previewPlaceholder" alignment="CENTER" spacing="12" styleClass="placeholder-box">
-                        <Label text="Procesa la imagen para ver el resultado" styleClass="placeholder-text"/>
-                        <Label text="La vista previa aparecerá aquí" styleClass="placeholder-hint"/>
+            <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS" styleClass="image-split">
+                <items>
+                    <VBox styleClass="image-panel">
+                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
+                            <padding>
+                                <Insets top="12" right="16" bottom="12" left="16"/>
+                            </padding>
+                            <Label text="Imagen original" styleClass="panel-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="fileNameLabel" text="Ninguna imagen seleccionada" styleClass="file-name-label"/>
+                        </HBox>
+                        <StackPane fx:id="originalImageStack" VBox.vgrow="ALWAYS" styleClass="image-stack original-stack" onMouseClicked="#handleSelectImage">
+                            <ImageView fx:id="originalImageView" preserveRatio="true"/>
+                            <VBox fx:id="originalPlaceholder" alignment="CENTER" spacing="12" styleClass="placeholder-box">
+                                <Label text="Selecciona una imagen para comenzar" styleClass="placeholder-text"/>
+                                <Label text="Haz clic en este panel para abrir un archivo" styleClass="placeholder-hint"/>
+                            </VBox>
+                        </StackPane>
                     </VBox>
-                </StackPane>
-            </VBox>
-        </GridPane>
+
+                    <VBox styleClass="image-panel result-panel" style="-fx-background-color: linear-gradient(to bottom, #202734, #1c222d);">
+                        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
+                            <padding>
+                                <Insets top="12" right="16" bottom="12" left="16"/>
+                            </padding>
+                            <Label text="Resultado" styleClass="panel-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="Vista previa" styleClass="file-name-label"/>
+                        </HBox>
+                        <StackPane fx:id="previewImageStack" VBox.vgrow="ALWAYS"
+                                   styleClass="image-stack result-stack"
+                                   style="-fx-background-color: linear-gradient(to bottom, #161c25, #1a212c);">
+                            <ImageView fx:id="previewImageView" preserveRatio="true"/>
+                            <VBox fx:id="previewPlaceholder" alignment="CENTER" spacing="12" styleClass="placeholder-box">
+                                <Label text="El resultado aparecerá aquí" styleClass="placeholder-text"/>
+                                <Label text="Aplica un filtro para verlo en esta sección" styleClass="placeholder-hint"/>
+                            </VBox>
+                        </StackPane>
+                    </VBox>
+                </items>
+            </SplitPane>
+        </VBox>
     </center>
 
     <bottom>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="status-bar">
-            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+            <padding>
+                <Insets top="10" right="18" bottom="10" left="18"/>
+            </padding>
             <Label fx:id="processingIndicator" text="●" styleClass="status-dot"/>
-            <ProgressBar fx:id="progressBar" prefWidth="220" progress="0" styleClass="status-progress"/>
+            <ProgressBar fx:id="progressBar" prefWidth="240" progress="0" styleClass="status-progress"/>
             <Label fx:id="progressLabel" text="" styleClass="status-progress-label"/>
         </HBox>
     </bottom>
