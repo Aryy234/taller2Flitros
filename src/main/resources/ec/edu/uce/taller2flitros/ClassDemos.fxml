@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ec.edu.uce.taller2flitros.demo.DemoClassController"
+            styleClass="root-pane">
+
+    <top>
+        <VBox styleClass="top-shell demo-top-shell" minHeight="140" prefHeight="140">
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="hero-bar">
+                <padding><Insets top="16" right="22" bottom="16" left="22"/></padding>
+                <VBox spacing="2">
+                    <Label text="Demos de Clase" styleClass="app-title"/>
+                    <Label text="Solo Grupo 1 y Grupo 3, con una visualización breve y funcional." styleClass="app-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Cerrar" onAction="#handleClose" styleClass="btn-secondary"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="demo-scroll">
+            <content>
+                <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="demo-tabs">
+                    <tabs>
+                        <Tab text="Grupo 1">
+                            <content>
+                                <VBox spacing="12" styleClass="demo-section" fillWidth="true">
+                                    <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                    <Label fx:id="group1Description" wrapText="true" styleClass="demo-card-body"/>
+                                    <StackPane fx:id="group1CanvasHolder" VBox.vgrow="ALWAYS"
+                                               minHeight="420" prefHeight="520" maxWidth="Infinity" maxHeight="Infinity">
+                                        <Canvas fx:id="group1Canvas" width="900" height="520" styleClass="demo-canvas"/>
+                                    </StackPane>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="Grupo 3">
+                            <content>
+                                <VBox spacing="12" styleClass="demo-section" fillWidth="true">
+                                    <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                    <Label fx:id="group3Description" wrapText="true" styleClass="demo-card-body"/>
+                                    <StackPane fx:id="group3CanvasHolder" VBox.vgrow="ALWAYS"
+                                               minHeight="420" prefHeight="520" maxWidth="Infinity" maxHeight="Infinity">
+                                        <Canvas fx:id="group3Canvas" width="900" height="520" styleClass="demo-canvas"/>
+                                    </StackPane>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

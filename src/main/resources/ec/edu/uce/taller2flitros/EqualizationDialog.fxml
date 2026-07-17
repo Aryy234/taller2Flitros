@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ec.edu.uce.taller2flitros.controller.EqualizationDialogController"
+            styleClass="root-pane">
+
+    <top>
+        <VBox styleClass="top-shell">
+            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="hero-bar">
+                <padding><Insets top="16" right="22" bottom="16" left="22"/></padding>
+                <VBox spacing="2">
+                    <Label text="Ecualización" styleClass="app-title"/>
+                    <Label text="Compara la imagen original y la ecualizada junto a sus histogramas." styleClass="app-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Aplicar" onAction="#handleApply" styleClass="btn-primary"/>
+                <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-ghost"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <GridPane styleClass="workspace">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="55" vgrow="ALWAYS"/>
+                <RowConstraints percentHeight="45" vgrow="ALWAYS"/>
+            </rowConstraints>
+
+            <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10" styleClass="image-panel">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Original" styleClass="panel-title"/>
+                <ImageView fx:id="originalImageView" preserveRatio="true" fitWidth="520" fitHeight="320"/>
+            </VBox>
+
+            <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10" styleClass="image-panel result-panel">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Ecualizada" styleClass="panel-title"/>
+                <ImageView fx:id="equalizedImageView" preserveRatio="true" fitWidth="520" fitHeight="320"/>
+            </VBox>
+
+            <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10" styleClass="image-panel">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Histograma original" styleClass="panel-title"/>
+                <Canvas fx:id="originalHistogramCanvas" width="520" height="220" styleClass="demo-canvas"/>
+            </VBox>
+
+            <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10" styleClass="image-panel result-panel">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Histograma ecualizado" styleClass="panel-title"/>
+                <Canvas fx:id="equalizedHistogramCanvas" width="520" height="220" styleClass="demo-canvas"/>
+            </VBox>
+        </GridPane>
+    </center>
+
+</BorderPane>

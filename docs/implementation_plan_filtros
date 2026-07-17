@@ -1,0 +1,105 @@
+# Rediseño UI — Generador de Flitros
+
+Transformar la interfaz actual de tema oscuro con sidebar izquierda a una interfaz clara, pastel y profesional con navbar horizontal y visualización de imágenes lado a lado.
+
+## Cambios solicitados
+
+1. **Paleta de colores** → Clara y pastel, profesional y minimalista
+2. **Navegación** → Eliminar sidebar izquierda, agregar **navbar horizontal** con menús desplegables por categoría de filtro
+3. **Nombre** → Cambiar de "PIXEL FORGE" a **"Generador de Flitros"**
+4. **Seleccionar Imagen** → Mover el botón/acción al interior del área de previsualización (zona izquierda)
+5. **Visualización** → Imagen original a la **izquierda** y resultado filtrado a la **derecha**, lado a lado
+
+---
+
+## Paleta de colores pastel propuesta
+
+| Token | Color | Uso |
+|-------|-------|-----|
+| Fondo principal | `#F7F5F2` (crema cálido) | Background general |
+| Superficie | `#FFFFFF` | Paneles y cards |
+| Navbar | `#FFFFFF` | Barra superior |
+| Borde | `#E8E4DF` | Separadores suaves |
+| Acento primario | `#7C9EBD` (azul pizarra pastel) | Botón aplicar, selección |
+| Acento hover | `#9DB8D2` | Hover suave |
+| Texto principal | `#3A3530` | Dark warm brown |
+| Texto secundario | `#8A8178` | Labels, placeholders |
+| Éxito / Preview activo | `#8FB89A` (verde sage) | Borde imagen resultado |
+| Error | `#C8837A` (rojo suave) | Mensajes de error |
+| Filtro seleccionado | `#D4E4F0` (azul muy claro) | Fondo item menú activo |
+
+---
+
+## Propuesta de arquitectura de UI
+
+```
+┌─────────────────────────────────────────────────┐
+│ HEADER: Logo + "Generador de Flitros" + Status  │
+├─────────────────────────────────────────────────┤
+│ NAVBAR: [Básicos ▼] [Ajustables ▼] [Artísticos ▼] [Convolución ▼] │
+│         con menús desplegables (MenuButton)      │
+│         + Botones: Aplicar | Guardar | Restablecer │
+├────────────────────────┬────────────────────────┤
+│  IMAGEN ORIGINAL       │  IMAGEN RESULTADO       │
+│  ┌──────────────────┐  │  ┌──────────────────┐  │
+│  │  [clic para      │  │  │  Vista previa     │  │
+│  │   seleccionar    │  │  │  del filtro       │  │
+│  │   imagen]        │  │  │  aplicado         │  │
+│  └──────────────────┘  │  └──────────────────┘  │
+├────────────────────────┴────────────────────────┤
+│  BARRA PARÁMETROS (si el filtro los necesita)   │
+│  Panel flotante con Sliders (Brillo/Sat/Alpha)  │
+├─────────────────────────────────────────────────┤
+│  STATUSBAR: Indicador + ProgressBar + Mensaje   │
+└─────────────────────────────────────────────────┘
+```
+
+---
+
+## Archivos a modificar
+
+### Recursos (FXML + CSS)
+
+#### [MODIFY] ImageFilterApp.fxml
+- Reestructurar el layout completo:
+  - Eliminar el `VBox` sidebar izquierdo (320px)
+  - Agregar `HBox` de navbar con `MenuButton` por categoría
+  - El centro pasa a ser un `HBox` con dos paneles de imagen iguales (50/50)
+  - Panel de parámetros (sliders) como sección inferior colapsable o flotante
+  - El botón "Seleccionar Imagen" se mueve al `StackPane` de la imagen original (placeholder clickeable)
+  - Botones de acción (Aplicar, Guardar, Restablecer) se integran en la navbar o en una barra debajo de la navbar
+
+#### [MODIFY] styles.css
+- Reemplazar toda la paleta oscura por la paleta pastel
+- Estilos para `MenuButton`, `ContextMenu`, `MenuItem`
+- Estilo de paneles de imagen con bordes redondeados suaves
+- Hover effects para elementos de menú
+- Estilos para el área de drop/selección de imagen
+
+### Java
+
+#### [MODIFY] ImageFilterController.java
+- Agregar imports de `MenuButton`, `MenuItem`
+- Cambiar `@FXML ToggleButton filterXxx` → conservar lógica pero atados a `MenuItem`
+- El `handleSelectImage()` se puede invocar desde el placeholder de imagen también
+- Actualizar colores hardcodeados en `setupToggleButtonStyles()` a la nueva paleta
+
+#### [MODIFY] ImageFilterApp.java
+- Cambiar `APP_TITLE` de `"Pixel Forge - Editor de Filtros"` a `"Generador de Flitros"`
+
+---
+
+## Plan de ejecución
+
+1. Actualizar `ImageFilterApp.java` (título)
+2. Reescribir `ImageFilterApp.fxml` (estructura completa)
+3. Reescribir `styles.css` (nueva paleta pastel)
+4. Actualizar `ImageFilterController.java` (adaptar a MenuButtons + nuevo placeholder)
+
+## Verificación
+
+- Compilar con `mvn clean javafx:run`
+- Verificar que los menús desplegables funcionan por categoría
+- Verificar que clic en área de imagen abre el selector de archivo
+- Verificar layout 50/50 de imágenes
+- Verificar panel de parámetros visible solo cuando el filtro lo requiere

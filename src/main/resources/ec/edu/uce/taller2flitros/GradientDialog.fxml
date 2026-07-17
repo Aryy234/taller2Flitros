@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ec.edu.uce.taller2flitros.controller.GradientDialogController"
+      style="-fx-background-color: #FFFFFF; -fx-padding: 24; -fx-spacing: 24;">
+    
+    <Label text="Generar Degradado" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #3A3530;"/>
+    
+    <HBox spacing="24">
+        <!-- Controles -->
+        <VBox spacing="16" prefWidth="220">
+            <VBox spacing="6">
+                <Label text="Tipo de Degradado:" style="-fx-font-size: 13px; -fx-text-fill: #5A5550; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="gradientTypeCombo" prefWidth="Infinity" style="-fx-background-color: #FAFAF8; -fx-border-color: #DDD8D2; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+            </VBox>
+            
+            <VBox spacing="6">
+                <Label text="Color Inicial:" style="-fx-font-size: 13px; -fx-text-fill: #5A5550; -fx-font-weight: bold;"/>
+                <ColorPicker fx:id="color1Picker" prefWidth="Infinity" style="-fx-background-color: #FAFAF8; -fx-border-color: #DDD8D2; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+            </VBox>
+            
+            <VBox spacing="6">
+                <Label text="Color Final:" style="-fx-font-size: 13px; -fx-text-fill: #5A5550; -fx-font-weight: bold;"/>
+                <ColorPicker fx:id="color2Picker" prefWidth="Infinity" style="-fx-background-color: #FAFAF8; -fx-border-color: #DDD8D2; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+            </VBox>
+        </VBox>
+        
+        <Separator orientation="VERTICAL"/>
+        
+        <!-- Vista Previa -->
+        <VBox spacing="8" alignment="CENTER">
+            <Label text="VISTA PREVIA" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #8A8178; -fx-letter-spacing: 0.8;"/>
+            <StackPane style="-fx-border-color: #EDE9E4; -fx-border-width: 1; -fx-background-color: #EDEAE5;">
+                <Rectangle fx:id="previewRect" width="220" height="220" fill="transparent"/>
+            </StackPane>
+        </VBox>
+    </HBox>
+    
+    <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-padding: 8 0 0 0;">
+        <Button text="Cancelar" onAction="#handleClose"
+                style="-fx-background-color: transparent; -fx-text-fill: #8A8178; -fx-border-color: #DDD8D2; -fx-border-radius: 6; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button text="Generar" onAction="#handleGenerate"
+                style="-fx-background-color: #7C9EBD; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 7 20; -fx-cursor: hand;"/>
+    </HBox>
+
+</VBox>
